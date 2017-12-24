@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,7 +23,6 @@ import java.util.List;
  */
 public class WordListFragment extends Fragment {
 
-    public static final int REQ_ADD = 0;
     public static final String ADD_DIALOG_TAG ="add_dialog_tag" ;
     private ImageView imageView;
     private RecyclerView recyclerView;
@@ -32,13 +33,30 @@ public class WordListFragment extends Fragment {
 
         private Word word;
         private TextView tvWord;
-
+        private TextView tvChar;
 
         public WordHolder(View itemView) {
             super(itemView);
             tvWord = (TextView) itemView.findViewById(R.id.tv_word);
+            tvChar = (TextView) itemView.findViewById(R.id.tv_char);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DetailFragment detailFragment = DetailFragment.newInstance(word.getUuid());
+                    detailFragment.setTargetFragment(WordListFragment.this , DetailFragment.REQ_DETAIL_FRAGMENT);
+                    getFragmentManager().beginTransaction().add(R.id.container , detailFragment).commit();
+                }
+            });
         }
+
+        public void setUI(Word word){
+            this.word = word;
+
+            tvWord.setText(word.getEnglishWord());
+            tvChar.setText(String.valueOf(word.getEnglishWord().charAt(0)));
+        }
+
     }
 
 
@@ -60,6 +78,9 @@ public class WordListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(WordHolder holder, int position) {
+            Word word = words.get(position);
+            holder.setUI(word);
+
 
         }
 
@@ -80,6 +101,8 @@ public class WordListFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_word_list, container, false);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         imageView = (ImageView) view.findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -87,15 +110,31 @@ public class WordListFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 AddDialogFragment addDialogFragment = AddDialogFragment.newInstance();
-                addDialogFragment.setTargetFragment(WordListFragment.this , REQ_ADD);
+                addDialogFragment.setTargetFragment(WordListFragment.this , AddDialogFragment.REQ_ADD);
                 addDialogFragment.show(fragmentManager , ADD_DIALOG_TAG);
             }
         });
+
+
 
         return view;
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+
+    public void updateUI(){
+
+        List<Word> words = WordRepository.getInstance(getActivity()).getWords();
+        wordAdapter = new WordAdapter(words);
+        recyclerView.setAdapter(wordAdapter);
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -20,6 +20,7 @@ import android.widget.Toast;
  */
 public class AddDialogFragment extends DialogFragment {
 
+    public static final int REQ_ADD = 0;
     private Word word;
     private EditText etWord;
     private EditText etMeaning;
@@ -48,6 +49,8 @@ public class AddDialogFragment extends DialogFragment {
                     word.setPersianWord(etMeaning.getText().toString());
                     WordRepository.getInstance(getActivity()).addWord(word);
                 }
+
+                getTargetFragment().onResume();
             }
         })
                 .create();

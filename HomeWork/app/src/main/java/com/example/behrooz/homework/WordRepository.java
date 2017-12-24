@@ -32,6 +32,10 @@ public class WordRepository {
     }
 
 
+    public List<Word> getWords() {
+        return words;
+    }
+
     public Word getWord(UUID uuid){
         for (int i=0 ; i<words.size();i++){
             if (words.get(i).getUuid().equals(uuid))

@@ -1,13 +1,61 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.example.behrooz.homework.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp">
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_word"
+        android:layout_gravity="start"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="22sp" />
+
+    <TextView
+        android:id="@+id/tv_meaning"
+        android:layout_gravity="end"
+        android:textSize="18sp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp" />
+
+</LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_remove"
+            android:text="Remove"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Edit"
+            android:layout_weight="1"
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

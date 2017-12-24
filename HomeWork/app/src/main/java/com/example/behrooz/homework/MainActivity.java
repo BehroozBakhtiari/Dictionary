@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     CharListFragment charListFragment = new CharListFragment();
     WordListFragment wordListFragment = new WordListFragment();
-    HeaderFragment headerFragment = new HeaderFragment();
 
     //===========================
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -27,6 +26,5 @@ public class MainActivity extends AppCompatActivity {
 
     fragmentManager.beginTransaction().replace(R.id.container_char, charListFragment).commit();
     fragmentManager.beginTransaction().replace(R.id.container_list, wordListFragment).commit();
-    fragmentManager.beginTransaction().replace(R.id.container_header, headerFragment).commit();
   }
 }
