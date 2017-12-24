@@ -7,24 +7,24 @@ import java.util.UUID;
  */
 
 public class Word {
-  private String persian_Word ;
-  private String English_Word ;
+  private String persianWord;
+  private String englishWord;
   private UUID uuid ;
 
-  public String getPersian_Word() {
-    return persian_Word;
+  public String getPersianWord() {
+    return persianWord;
   }
 
-  public void setPersian_Word(String persian_Word) {
-    this.persian_Word = persian_Word;
+  public void setPersianWord(String persianWord) {
+    this.persianWord = persianWord;
   }
 
-  public String getEnglish_Word() {
-    return English_Word;
+  public String getEnglishWord() {
+    return englishWord;
   }
 
-  public void setEnglish_Word(String english_Word) {
-    English_Word = english_Word;
+  public void setEnglishWord(String englishWord) {
+    this.englishWord = englishWord;
   }
 
   public UUID getUuid() {
