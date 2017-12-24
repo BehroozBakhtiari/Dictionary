@@ -16,14 +16,13 @@
         android:padding="25dp"
         android:background="@color/colorHeaderFragment">
 
-        <android.support.v7.widget.SearchView
+        <SearchView
             android:id="@+id/searchView"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="57dp"
-
             android:background="@drawable/detail_style"/>
 
         <ImageView
@@ -36,9 +35,31 @@
             app:srcCompat="@android:drawable/ic_menu_add"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:id="@+id/recycler_view"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:padding="10dp"
+            android:id="@+id/recycler_view"
+            android:layout_weight="8"
+            android:background="@color/colorListFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/container_char_list"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:background="@color/colorSearchCharacter">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

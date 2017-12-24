@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     //===========================
 
-    fragmentManager.beginTransaction().replace(R.id.container_char, charListFragment).commit();
-    fragmentManager.beginTransaction().replace(R.id.container_list, wordListFragment).commit();
+    //fragmentManager.beginTransaction().replace(R.id.container_char, charListFragment).commit();
+    fragmentManager.beginTransaction().replace(R.id.container_main, wordListFragment).commit();
   }
 }
