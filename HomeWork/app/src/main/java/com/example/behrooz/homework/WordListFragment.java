@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -23,21 +24,38 @@ public class WordListFragment extends Fragment {
     public static final int REQ_ADD = 0;
     public static final String ADD_DIALOG_TAG ="add_dialog_tag" ;
     private ImageView imageView;
+    private RecyclerView recyclerView;
+    private WordAdapter wordAdapter;
 
 
     private class WordHolder extends RecyclerView.ViewHolder {
+
+        private Word word;
+        private TextView tvWord;
+
+
         public WordHolder(View itemView) {
             super(itemView);
+            tvWord = (TextView) itemView.findViewById(R.id.tv_word);
+
         }
     }
 
 
     private class WordAdapter extends RecyclerView.Adapter<WordHolder>{
-        
+        private List<Word> words;
+
+        public WordAdapter (List<Word> words){
+            this.words=words;
+        }
+
 
         @Override
         public WordHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.list_item , parent , false);
+
+            WordHolder wordHolder = new WordHolder(view);
+            return wordHolder;
         }
 
         @Override
@@ -47,7 +65,9 @@ public class WordListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            if (words== null)
+                return 0;
+            return words.size();
         }
     }
 
