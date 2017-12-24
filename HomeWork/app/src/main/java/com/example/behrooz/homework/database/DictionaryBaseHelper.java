@@ -17,8 +17,8 @@ public class DictionaryBaseHelper extends SQLiteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase db) {
 
-    db.execSQL("create table " + DbSchema.NAME + "(" +
-      "_id integer primary key autoincrement," +
+    db.execSQL("create table " + DbSchema.DictionaryTable.NAME + "(" +
+      "_id integer primary key autoincrement"+"," +
       DbSchema.DictionaryTable.Cols.UUID + "," +
       DbSchema.DictionaryTable.Cols.PERSIAN_WORD + "," +
       DbSchema.DictionaryTable.Cols.ENGLISH_WORD +
