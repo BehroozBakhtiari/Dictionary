@@ -11,6 +11,10 @@ public class Word {
   private String englishWord;
   private UUID uuid ;
 
+  public Word(UUID uuid) {
+    this.uuid= uuid;
+  }
+
   public String getPersianWord() {
     return persianWord;
   }
@@ -31,7 +35,9 @@ public class Word {
     return uuid;
   }
 
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
+
+  public Word(){
+    this(UUID.randomUUID());
   }
+
 }
