@@ -1,18 +1,18 @@
 package com.example.behrooz.homework;
 
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,6 +28,14 @@ public class WordListFragment extends Fragment {
     private RecyclerView recyclerView;
     private WordAdapter wordAdapter;
 
+
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    setHasOptionsMenu(true);
+  }
 
     private class WordHolder extends RecyclerView.ViewHolder {
 
@@ -104,24 +112,37 @@ public class WordListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        imageView = (ImageView) view.findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                AddDialogFragment addDialogFragment = AddDialogFragment.newInstance();
-                addDialogFragment.setTargetFragment(WordListFragment.this , AddDialogFragment.REQ_ADD);
-                addDialogFragment.show(fragmentManager , ADD_DIALOG_TAG);
-            }
-        });
-
-
-
         return view;
 
     }
 
-    @Override
+
+
+  @Override
+  public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.menu, menu);
+    MenuItem item = menu.findItem(R.id.action_search);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_add:
+        FragmentManager fragmentManager = getFragmentManager();
+        AddDialogFragment addDialogFragment = AddDialogFragment.newInstance();
+        addDialogFragment.setTargetFragment(WordListFragment.this , AddDialogFragment.REQ_ADD);
+        addDialogFragment.show(fragmentManager , ADD_DIALOG_TAG);
+        return true;
+      case R.id.action_search:
+
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
+
+  @Override
     public void onResume() {
         super.onResume();
         updateUI();

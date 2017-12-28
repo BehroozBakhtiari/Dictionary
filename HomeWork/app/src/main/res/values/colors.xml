@@ -7,6 +7,8 @@
     <color name="colorTextDetail">#7b00ff</color>
     <color name="colorSearchCharacter">#0D47A1</color>
     <color name="colorListFragment">#3caaea</color>
-    <color name="colorHeaderFragment">#3047ff</color>
-    #798DFD
+    <color name="colorToolBar">#3047ff</color>
+    <color name="colorToolBarText">#ffffff</color>
+    <color name="blackx">@android:color/white</color>
+
 </resources>

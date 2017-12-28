@@ -1,61 +1,45 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/container"
     tools:context="com.example.behrooz.homework.WordListFragment">
 
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/colorToolBar"/>-->
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:background="@color/colorHeaderFragment">
+    <!--<com.miguelcatalan.materialsearchview.MaterialSearchView-->
+        <!--android:id="@+id/search_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"        />-->
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="57dp"
-            android:background="@drawable/detail_style"/>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@android:drawable/ic_menu_add"/>
-    </RelativeLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
-            android:padding="10dp"
             android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="8"
             android:background="@color/colorListFragment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:padding="10dp"/>
 
         <LinearLayout
             android:id="@+id/container_char_list"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_height="match_parent"
-            android:background="@color/colorSearchCharacter">
+            android:layout_weight="1"
+            android:background="@color/colorSearchCharacter"
+            android:gravity="center"
+            android:orientation="vertical">
 
         </LinearLayout>
 

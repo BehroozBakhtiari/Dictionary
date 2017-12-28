@@ -63,7 +63,8 @@ public class WordRepository {
     database.insert(DbSchema.DictionaryTable.NAME, null, contentValues);
 
   }
-//////add word void ??????
+
+  //////add word void ??????
   public void deleteWord(Word word) {
     if (words.contains(word))
       words.remove(word);
