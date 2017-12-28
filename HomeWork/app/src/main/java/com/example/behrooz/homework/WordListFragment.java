@@ -26,6 +26,8 @@ import java.util.List;
 public class WordListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     public static final String ADD_DIALOG_TAG ="add_dialog_tag" ;
+    public static final int REQ_DETAIL_FRAGMENT = 1;
+
     private ImageView imageView;
     private RecyclerView recyclerView;
     private WordAdapter wordAdapter;
@@ -54,8 +56,10 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
                 @Override
                 public void onClick(View v) {
                     DetailFragment detailFragment = DetailFragment.newInstance(word.getUuid());
-                    detailFragment.setTargetFragment(WordListFragment.this , DetailFragment.REQ_DETAIL_FRAGMENT);
-                    getFragmentManager().beginTransaction().add(R.id.container , detailFragment).commit();
+                    detailFragment.setTargetFragment(WordListFragment.this , REQ_DETAIL_FRAGMENT);
+                    getFragmentManager().beginTransaction().add(((ViewGroup) getView().getParent()).getId() , detailFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
             });
         }

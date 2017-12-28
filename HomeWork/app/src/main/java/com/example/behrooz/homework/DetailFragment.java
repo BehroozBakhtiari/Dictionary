@@ -20,7 +20,9 @@ import java.util.UUID;
  */
 public class DetailFragment extends Fragment {
 
-    public static final String ARGS_UUID = "args_uuid";
+    public static final int REQ_EDIT = 2;
+    private static final String EDIT_TAG ="edit_tag" ;
+    private static final String ARGS_UUID = "args_uuid";
     private Word word;
     private TextView tvWord;
     private TextView tvMeaning;
@@ -39,7 +41,7 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail,container ,false);
 
-        UUID wordUUid = (UUID) getArguments().getSerializable(ARGS_UUID);
+        final UUID wordUUid = (UUID) getArguments().getSerializable(ARGS_UUID);
         word = WordRepository.getInstance(getActivity()).getWord(wordUUid);
 
         tvWord = (TextView) view.findViewById(R.id.tv_word);
@@ -53,6 +55,9 @@ public class DetailFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(wordUUid);
+                editDialogFragment.setTargetFragment(DetailFragment.this , REQ_EDIT);
+                editDialogFragment.show(getFragmentManager() , EDIT_TAG);
 
             }
         });
@@ -60,9 +65,10 @@ public class DetailFragment extends Fragment {
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WordRepository.getInstance(getActivity()).getWords().remove(word);
+                WordRepository.getInstance(getActivity()).deleteWord(word);
                 Toast.makeText(getActivity(), "Word successfully removed!", Toast.LENGTH_SHORT).show();
                 getFragmentManager().popBackStackImmediate();
+                getTargetFragment().onResume();
             }
         });
 
