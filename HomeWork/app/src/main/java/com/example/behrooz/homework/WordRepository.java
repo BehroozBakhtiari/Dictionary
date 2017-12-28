@@ -9,7 +9,6 @@ import com.example.behrooz.homework.database.DbSchema;
 import com.example.behrooz.homework.database.DictionaryBaseHelper;
 import com.example.behrooz.homework.database.WordCursorWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,8 +55,8 @@ public class WordRepository {
   }
 
   public void addWord(Word word) {
-    if (!words.contains(word))
-      words.add(word);
+//    if (!words.contains(word))
+//      words.add(word);
     ContentValues contentValues = getContentValues(word);
     database.insert(DbSchema.DictionaryTable.NAME, null, contentValues);
 
