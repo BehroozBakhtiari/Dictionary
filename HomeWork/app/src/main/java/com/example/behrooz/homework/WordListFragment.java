@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,18 +29,9 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
     public static final String ADD_DIALOG_TAG ="add_dialog_tag" ;
     public static final int REQ_DETAIL_FRAGMENT = 1;
 
-    private ImageView imageView;
     private RecyclerView recyclerView;
     private WordAdapter wordAdapter;
 
-
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    setHasOptionsMenu(true);
-  }
 
   private class WordHolder extends RecyclerView.ViewHolder {
 
@@ -66,7 +58,6 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
 
         public void setUI(Word word){
             this.word = word;
-
             tvWord.setText(word.getEnglishWord());
             tvChar.setText(String.valueOf(word.getEnglishWord().charAt(0)));
         }
@@ -75,17 +66,16 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
 
 
     private class WordAdapter extends RecyclerView.Adapter<WordHolder>{
-        private List<Word> words;
+        private final List<Word> words;
 
         public WordAdapter (List<Word> words){
-            this.words=words;
+            this.words = new ArrayList<>(words);
         }
 
 
         @Override
         public WordHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.list_item , parent , false);
-
             WordHolder wordHolder = new WordHolder(view);
             return wordHolder;
         }
@@ -95,7 +85,6 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
             Word word = words.get(position);
             holder.setUI(word);
 
-
         }
 
         @Override
@@ -104,8 +93,60 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
                 return 0;
             return words.size();
         }
-    }
 
+
+        public Word removeItem(int position) {
+            final Word word = words.remove(position);
+            notifyItemRemoved(position);
+            return word;
+        }
+
+        public void addItem(int position, Word word) {
+            words.add(position, word);
+            notifyItemInserted(position);
+        }
+
+        public void moveItem(int fromPosition, int toPosition) {
+            final Word word = words.remove(fromPosition);
+            words.add(toPosition, word);
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+
+        public void animateTo(List<Word> words) {
+            applyAndAnimateRemovals(words);
+            applyAndAnimateAdditions(words);
+            applyAndAnimateMovedItems(words);
+        }
+
+        private void applyAndAnimateRemovals(List<Word> newModels) {
+            for (int i = words.size() - 1; i >= 0; i--) {
+                final Word word = words.get(i);
+                if (!newModels.contains(word)) {
+                    removeItem(i);
+                }
+            }
+        }
+        private void applyAndAnimateAdditions(List<Word> newModels) {
+            for (int i = 0, count = newModels.size(); i < count; i++) {
+                final Word word = newModels.get(i);
+                if (!words.contains(word)) {
+                    addItem(i, word);
+                }
+            }
+        }
+
+        private void applyAndAnimateMovedItems(List<Word> newModels) {
+            for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+                final Word word = newModels.get(toPosition);
+                final int fromPosition = words.indexOf(word);
+                if (fromPosition >= 0 && fromPosition != toPosition) {
+                    moveItem(fromPosition, toPosition);
+                }
+            }
+        }
+
+    }
 
 
     @Override
@@ -116,10 +157,21 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
         View view =  inflater.inflate(R.layout.fragment_word_list, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        updateUI();
 
         return view;
 
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        updateUI();
     }
 
 
@@ -138,8 +190,21 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
   }
 
   @Override
-  public boolean onQueryTextChange(String newText) {
-    return false;
+  public boolean onQueryTextChange(String query) {
+      query = query.toLowerCase();
+
+      final List<Word> filteredModelList = new ArrayList<>();
+      for (Word word : WordRepository.getInstance(getActivity()).getWords()) {
+          final String text = word.getEnglishWord().toLowerCase();
+          if (text.contains(query)) {
+              filteredModelList.add(word);
+          }
+      }
+      wordAdapter.animateTo(filteredModelList);
+      recyclerView.scrollToPosition(0);
+
+
+      return true;
   }
 
 
@@ -170,11 +235,11 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
 
 
     public void updateUI(){
-
         List<Word> words = WordRepository.getInstance(getActivity()).getWords();
         wordAdapter = new WordAdapter(words);
         recyclerView.setAdapter(wordAdapter);
-
+        wordAdapter.notifyDataSetChanged();
     }
+
 
 }
