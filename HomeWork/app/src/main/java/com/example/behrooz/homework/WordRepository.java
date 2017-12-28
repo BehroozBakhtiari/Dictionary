@@ -30,7 +30,6 @@ public class WordRepository {
   }
 
   private WordRepository(Context context) {
-    words = new ArrayList<>();
     this.context = context.getApplicationContext();
     database = new DictionaryBaseHelper(this.context).getWritableDatabase();
   }

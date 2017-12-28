@@ -4,8 +4,10 @@ package com.example.behrooz.homework;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +23,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordListFragment extends Fragment {
+public class WordListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     public static final String ADD_DIALOG_TAG ="add_dialog_tag" ;
     private ImageView imageView;
@@ -37,7 +39,7 @@ public class WordListFragment extends Fragment {
     setHasOptionsMenu(true);
   }
 
-    private class WordHolder extends RecyclerView.ViewHolder {
+  private class WordHolder extends RecyclerView.ViewHolder {
 
         private Word word;
         private TextView tvWord;
@@ -121,8 +123,22 @@ public class WordListFragment extends Fragment {
   @Override
   public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.menu, menu);
-    MenuItem item = menu.findItem(R.id.action_search);
+    final MenuItem item = menu.findItem(R.id.action_search);
+    final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+    searchView.setOnQueryTextListener(this);
   }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String newText) {
+    return false;
+  }
+
+
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
