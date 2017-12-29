@@ -6,7 +6,7 @@ import java.util.UUID;
  * Created by Behrooz on 12/23/2017.
  */
 
-public class Word {
+public class Word implements Comparable<Word> {
   private String persianWord;
   private String englishWord;
   private UUID uuid ;
@@ -40,4 +40,10 @@ public class Word {
     this(UUID.randomUUID());
   }
 
+  @Override
+  public int compareTo( Word word) {
+
+    return this.englishWord.compareTo(word.englishWord);
+
+  }
 }

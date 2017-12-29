@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -235,10 +236,10 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
   public void updateUI() {
     List<Word> words = WordRepository.getInstance(getActivity()).getWords();
 
-      wordAdapter = new WordAdapter(words);
-      recyclerView.setAdapter(wordAdapter);
-      wordAdapter.notifyDataSetChanged();
-
+    wordAdapter = new WordAdapter(words);
+    recyclerView.setAdapter(wordAdapter);
+    wordAdapter.notifyDataSetChanged();
+    Collections.sort(words);
 
 
   }
