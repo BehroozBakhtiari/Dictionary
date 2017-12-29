@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.behrooz.homework.database.DbSchema;
 import com.example.behrooz.homework.database.DictionaryBaseHelper;
@@ -41,6 +42,8 @@ public class WordRepository {
     if (wordCursorWrapper == null)
       return null;
 
+
+    Log.i("wordOk","wo");
     List<Word> wordList = new ArrayList<>();
     if (wordCursorWrapper.getCount() == 0)
       return wordList;
@@ -48,9 +51,6 @@ public class WordRepository {
     try {
       wordCursorWrapper.moveToFirst();
 
-      do {
-
-      } while (wordCursorWrapper.moveToNext());
 
       while (!wordCursorWrapper.isAfterLast()) {
         Word word = wordCursorWrapper.getWord();
@@ -105,7 +105,7 @@ public class WordRepository {
 //      words.add(word);
     ContentValues contentValues = getContentValues(word);
     database.insert(DbSchema.DictionaryTable.NAME, null, contentValues);
-
+    Log.i("ok","ok");
   }
 
   //////add word void ??????
