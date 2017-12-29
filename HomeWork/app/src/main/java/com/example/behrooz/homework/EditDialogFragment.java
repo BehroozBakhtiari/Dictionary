@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,5 +85,9 @@ public class EditDialogFragment extends DialogFragment {
         return editDialogFragment;
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        WordRepository.getInstance(getActivity()).updateWord(word);
+    }
 }

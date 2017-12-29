@@ -11,10 +11,11 @@ public class DbSchema {
 
   public static final class DictionaryTable {
     public static final String NAME = "Dictionary";
+
     public static final class Cols {
       public static final String UUID = "UUID";
-      public static final String PERSIAN_WORD = "Persian Word";
-      public static final String ENGLISH_WORD = "English Word";
+      public static final String PERSIAN_WORD = "PersianWord";
+      public static final String ENGLISH_WORD = "EnglishWord";
     }
   }
 }
