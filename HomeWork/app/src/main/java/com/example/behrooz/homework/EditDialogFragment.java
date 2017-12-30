@@ -56,6 +56,9 @@ public class EditDialogFragment extends DialogFragment {
                         else {
                             word.setEnglishWord(etWord.getText().toString());
                             word.setPersianWord(etMeaning.getText().toString());
+
+
+
                         }
 
                         WordRepository.getInstance(getActivity()).updateWord(word);
