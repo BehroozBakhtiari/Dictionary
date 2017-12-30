@@ -108,10 +108,10 @@ public class WordRepository {
     Log.i("ok","ok");
   }
 
-  //////add word void ??????
   public void deleteWord(Word word) {
-//    if (words.contains(word))
-//      words.remove(word);
+      database.delete(DbSchema.DictionaryTable.NAME
+              , DbSchema.DictionaryTable.Cols.UUID + " = ?"
+              , new String[]{word.getUuid().toString()});
   }
 
   public void updateWord(Word newWord) {

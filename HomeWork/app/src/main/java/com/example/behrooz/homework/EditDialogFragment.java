@@ -58,6 +58,7 @@ public class EditDialogFragment extends DialogFragment {
                             word.setPersianWord(etMeaning.getText().toString());
                         }
 
+                        WordRepository.getInstance(getActivity()).updateWord(word);
                         getFragmentManager().popBackStackImmediate();
                         getTargetFragment().getTargetFragment().onResume();
                     }
@@ -84,10 +85,10 @@ public class EditDialogFragment extends DialogFragment {
         editDialogFragment.setArguments(args);
         return editDialogFragment;
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        WordRepository.getInstance(getActivity()).updateWord(word);
-    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        WordRepository.getInstance(getActivity()).updateWord(word);
+//    }
 }
