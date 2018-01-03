@@ -20,8 +20,8 @@ import java.util.UUID;
 
 public class WordRepository {
   //  private List<Word> words;
-  private Context context;
-  private SQLiteDatabase database;
+    private Context context;
+    private SQLiteDatabase database;
   private static WordRepository wordRepository;
 
   public static WordRepository getInstance(Context context) {
