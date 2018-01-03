@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,9 +50,10 @@ public class WordListFragment extends Fragment implements SearchView.OnQueryText
         public void onClick(View v) {
           DetailFragment detailFragment = DetailFragment.newInstance(word.getUuid());
           detailFragment.setTargetFragment(WordListFragment.this, REQ_DETAIL_FRAGMENT);
-          getFragmentManager().beginTransaction().add(((ViewGroup) getView().getParent()).getId(), detailFragment)
+          getFragmentManager().beginTransaction().replace(((ViewGroup) getView().getParent()).getId(), detailFragment)
             .addToBackStack(null)
             .commit();
+//          Log.d("tagggg" , ((ViewGroup) getView().getParent()).getId() + "");
         }
       });
     }
